@@ -37,18 +37,19 @@ let itemPizza = pizzaJson.map((item, key) => {
         }, 200)
         selectOne('.pizzaInfo--qt').innerHTML = modalQt
 
-        modalPizzaContent.querySelector('.pizzaInfo--cancelButton').addEventListener('click', ((e) => {
-
-            e.preventDefault()
-            modalPizzaContent.style.opacity = 1
-            setTimeout(() => {
-                modalPizzaContent.style.opacity = 0
-            }, 200)
-            modalPizzaContent.style.display = 'none'
-        }))
-
 
     })
     selectOne('.pizza-area').append(pizzCotentModel)
 
+})
+
+function colsedModal() {
+
+    selectOne('.pizzaWindowArea').style.opacity = 0;
+    setTimeout(() => {
+        selectOne('.pizzaWindowArea').style.display = 'none'
+    }, 500)
+}
+selectAll('.pizzaInfo--cancelMobileButton, .pizzaInfo--cancelButton').forEach((item) => {
+    item.addEventListener('click', colsedModal)
 })
