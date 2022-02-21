@@ -226,7 +226,7 @@ h1 {
     background-color: #CCC;
 }
 
-.announcementModalArea--content-info--size.selected {
+.pizzaInfo--size.selected {
     background-color: #399ade;
     color: #FFF;
 }

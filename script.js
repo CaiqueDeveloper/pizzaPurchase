@@ -53,3 +53,24 @@ function colsedModal() {
 selectAll('.pizzaInfo--cancelMobileButton, .pizzaInfo--cancelButton').forEach((item) => {
     item.addEventListener('click', colsedModal)
 })
+selectOne('.pizzaInfo--qtmais').addEventListener('click', (e) => {
+    e.preventDefault()
+    modalQt++
+    selectOne('.pizzaInfo--qt').innerHTML = modalQt
+
+})
+selectOne('.pizzaInfo--qtmenos').addEventListener('click', (e) => {
+    e.preventDefault()
+    if (modalQt > 1) {
+        modalQt--;
+        selectOne('.pizzaInfo--qt').innerHTML = modalQt
+    }
+})
+
+selectAll('.pizzaInfo--size').forEach((sizeItem, sizeIndex) => {
+    sizeItem.addEventListener('click', (e) => {
+        selectOne('.pizzaInfo--size.selected').classList.remove('selected')
+        e.target.classList.add('selected')
+        console.log(sizeItem.classList.add('selected'))
+    })
+})
