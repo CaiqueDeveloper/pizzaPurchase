@@ -1,6 +1,8 @@
 const selectOne = ((el) => document.querySelector(el))
 const selectAll = ((el) => document.querySelectorAll(el))
 let modalQt = 1;
+let modalKey = 0;
+let cart = [];
 //clone element
 let itemPizza = pizzaJson.map((item, key) => {
 
@@ -16,6 +18,8 @@ let itemPizza = pizzaJson.map((item, key) => {
 
         //get element by clicked
         let keyPizza = e.target.closest('.pizza-item').getAttribute('data-key')
+        modalKey = keyPizza
+
         selectOne('.pizzaBig img').setAttribute('src', pizzaJson[keyPizza].img)
         selectOne('.pizzaInfo h1').innerHTML = pizzaJson[keyPizza].name
         selectOne('.pizzaInfo--desc').innerHTML = pizzaJson[keyPizza].description
@@ -73,4 +77,15 @@ selectAll('.pizzaInfo--size').forEach((sizeItem, sizeIndex) => {
         e.target.classList.add('selected')
         console.log(sizeItem.classList.add('selected'))
     })
+})
+
+selectOne('.pizzaInfo--addButton').addEventListener('click', (e) => {
+    e.preventDefault()
+    let size = selectOne('.pizzaInfo--size.selected').getAttribute('data-key');
+    cart.push({
+        id: pizzaJson[modalKey].id,
+        size,
+        modalQt
+    })
+    colsedModal()
 })
