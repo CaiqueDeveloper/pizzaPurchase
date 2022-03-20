@@ -104,9 +104,30 @@ function updateCart(){
 
     if(cart.length > 0){
         selectOne('aside').classList.add('show');
+        selectOne('.cart').innerHTML = '';
         for(let i in cart){
             let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
+            let cartItem = selectOne('.cart--item').cloneNode(true);
+            
 
+            let pizzaSizeName;
+            switch(cart[i].size){
+                case '0':
+                    pizzaSizeName = 'P';
+                    break;
+                case '1':
+                    pizzaSizeName = 'M';
+                    break;
+                case '2':
+                    pizzaSizeName = 'G';
+                    break;
+            }
+            let pizzaName = `${pizzaItem.name} (${pizzaSizeName})`;
+            cartItem.querySelector('img').src = pizzaItem.img;
+            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
+            cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].modalQt;
+
+            selectOne('.cart').append(cartItem)
             console.log(pizzaItem)
         }
     }else{
