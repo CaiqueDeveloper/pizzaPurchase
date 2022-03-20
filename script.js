@@ -97,5 +97,19 @@ selectOne('.pizzaInfo--addButton').addEventListener('click', (e) => {
         })
     }
     
+    updateCart()
     colsedModal()
 })
+function updateCart(){
+
+    if(cart.length > 0){
+        selectOne('aside').classList.add('show');
+        for(let i in cart){
+            let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
+
+            console.log(pizzaItem)
+        }
+    }else{
+        selectOne('aside').classList.remove('show');
+    }
+}
