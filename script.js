@@ -82,10 +82,20 @@ selectAll('.pizzaInfo--size').forEach((sizeItem, sizeIndex) => {
 selectOne('.pizzaInfo--addButton').addEventListener('click', (e) => {
     e.preventDefault()
     let size = selectOne('.pizzaInfo--size.selected').getAttribute('data-key');
-    cart.push({
-        id: pizzaJson[modalKey].id,
-        size,
-        modalQt
-    })
+    let identifier = pizzaJson[modalKey].id+'@'+size
+    let key = cart.findIndex((item) => item.identifier == identifier)
+
+    if(key > -1){
+        cart[key].modalQt += modalQt
+    }else{
+
+        cart.push({
+            identifier,
+            id: pizzaJson[modalKey].id,
+            size,
+            modalQt
+        })
+    }
+    
     colsedModal()
 })
