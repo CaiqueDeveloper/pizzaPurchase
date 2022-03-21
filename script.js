@@ -100,13 +100,32 @@ selectOne('.pizzaInfo--addButton').addEventListener('click', (e) => {
     updateCart()
     colsedModal()
 })
+selectOne('.menu-openner').addEventListener('click', (e)=>{
+    if(cart.length > 0){
+        selectOne('aside').style.left = '0';
+    }
+})
+selectOne('.menu-closer').addEventListener('click', (e)=>{
+    if(cart.length > 0){
+        selectOne('aside').style.left = '100vw';
+    }
+})
+selectOne('.cart--finalizar').addEventListener('click', (e)=>{
+    alert("Ops ! Não é possível  realizar  essa ação. esse é um projeto com fins didático.")
+})
 function updateCart(){
-
+    selectOne('.menu-openner').innerHTML =  cart.length;
     if(cart.length > 0){
         selectOne('aside').classList.add('show');
         selectOne('.cart').innerHTML = '';
+        
+        let subtotal = 0
+        let desconto = 0
+        let total = 0
+
         for(let i in cart){
             let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
+            subtotal += pizzaItem.price * cart[i].modalQt
             let cartItem = selectOne('.cart--item').cloneNode(true);
             
 
@@ -127,10 +146,32 @@ function updateCart(){
             cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
             cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].modalQt;
 
+            cartItem.querySelector('.cart--item-qtmais').addEventListener('click', (e) =>{
+                cart[i].modalQt++;
+                updateCart();
+            })
+
+            cartItem.querySelector('.cart--item-qtmenos').addEventListener('click', (e) =>{
+                if(cart[i].modalQt > 1){
+                    cart[i].modalQt--;
+                }else{
+                    cart.splice(i, 1);
+                }
+                updateCart();
+            })
+
+
             selectOne('.cart').append(cartItem)
-            console.log(pizzaItem)
+           
         }
+
+        desconto = subtotal * 0.1
+        total = subtotal - desconto
+        selectOne('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
+        selectOne('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
+        selectOne('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
     }else{
         selectOne('aside').classList.remove('show');
+        selectOne('aside').style.left = '0';
     }
 }
