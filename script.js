@@ -111,7 +111,47 @@ selectOne('.menu-closer').addEventListener('click', (e)=>{
     }
 })
 selectOne('.cart--finalizar').addEventListener('click', (e)=>{
-    alert("Ops ! Não é possível  realizar  essa ação. esse é um projeto com fins didático.")
+    // selectOne('.modal').style.display = 'block'
+    // selectOne('.modal').classList.add('show')
+    const cartFinal = []
+    let subtotal = 0
+    let itemPayment = ''
+    for(let i in cart){
+        let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
+        subtotal += pizzaItem.price * cart[i].modalQt
+        let pizzaSizeName;
+        switch(cart[i].size){
+            case '0':
+                pizzaSizeName = 'P';
+                break;
+            case '1':
+                pizzaSizeName = 'M';
+                break;
+            case '2':
+                pizzaSizeName = 'G';
+                break;
+        }
+        
+        let pizzaName = `${pizzaItem.name} - (${pizzaSizeName}) - R$ ${pizzaItem.price.toFixed(2)}`;
+       // cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].modalQt;
+        cartFinal.push({
+            name: pizzaName,
+            quantity: cart[i].modalQt,
+        })
+        
+    }
+  
+
+    for(let i in cartFinal){
+        
+        itemPayment += `${cartFinal[i].name} - Quantidade: ${cartFinal[i].quantity}\n`
+    }
+    let addrres = `Bairro: Centro\nRua: Faustino Caló\nNª: 190\nCompleto: Do lado da casa de ciclano`
+    let paymentMethod = `Cartão: não\nDinheiro: sim\nTroco para?: R$: 150.00`
+    let troco = 150 - subtotal
+    let bodyUrl = `=========PEDIDO========\n\n${itemPayment}\n=========Endereço========\n\n${addrres}\n\n=========Método de Pagamento========\n${paymentMethod}\n\n ================\n\nTotoal:${subtotal} \nTroco:R$ ${troco.toFixed(2)}`
+   window.open(`https://api.whatsapp.com/send?phone=7399811792&text=${window.encodeURIComponent(bodyUrl)}`,"_blank")
+   console.log(bodyUrl);
 })
 function updateCart(){
     selectOne('.menu-openner').innerHTML =  cart.length;
