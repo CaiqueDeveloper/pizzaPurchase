@@ -146,12 +146,38 @@ selectOne('.cart--finalizar').addEventListener('click', (e)=>{
     for(let i in cartFinal){
         itemPayment += `${cartFinal[i].name} - Quantidade: ${cartFinal[i].quantity}\n\n`
     }
+    let name = ''
+    let alternativeNumber = ''
+    let bairro = ''
+    let rua = ''
+    let numero = ''
+    let completo = ''
+    let payment = ''
+    let troco = ''
+    selectOne('form').addEventListener('submit', function(e){
+        e.preventDefault()
 
-    let addrres = `Bairro: Centro\nRua: Faustino Caló\nNª: 190\nCompleto: Do lado da casa de ciclano`
-    let paymentMethod = `Cartão: não\nDinheiro: sim\nTroco para?: R$: 150.00`
-    let troco = 150 - subtotal
-    let bodyUrl = `*PEDIDO*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n*Método de Pagamento*\n${paymentMethod}\n\n============\n\nTotal:${subtotal} \nTroco:R$ ${troco.toFixed(2)}`
-   sendMessage(bodyUrl);
+        name = selectOne('input[name=name]').value
+        alternativeNumber = selectOne('input[name=alternativePhone]').value
+        bairro = selectOne('input[name=bairro]').value
+        rua = selectOne('input[name=rua]').value
+        numero = selectOne('input[name=numero]').value
+        troco = selectOne('input[name=troco]').value
+        payment = ( selectOne('input[name="paymentMethod"]:checked').value == 1) ? `Cartão: não\n Dinheiro: Sim`: `Cartão: Sim\n Dinheiro: não`
+        completo = selectOne('textarea[name=complemento]').value
+        selectOne('.modal').style.display = 'none'
+        selectOne('.modal').classList.remove('show')
+
+        let addrres = `Bairro:${bairro}\nRua: ${rua}\nNª:${numero}\nCompleto:${completo}`
+        let paymentMethod = `Cartão: não\nDinheiro: sim\nTroco para?: R$: ${troco}`
+        let bodyUrl = `*PEDIDO de: ${name}*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n*Método de Pagamento*\n${paymentMethod}\n\n============\n\nTotal:${subtotal} \nTroco:R$ ${troco}`
+        if(bairro != null){
+            sendMessage(bodyUrl);
+        }
+    })
+   
+    
+
 })
 function sendMessage(bodyUrl){
    

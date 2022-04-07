@@ -108,43 +108,43 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputName">Nome</label>
-                    <input type="text" class="form-control" id="inputName" placeholder="Nome">
+                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Nome">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="alternativePhone">Telefone Alternativo</label>
-                    <input type="text" class="form-control" id="alternativePhone" placeholder="Ex 73 0 0000-0000">
+                    <input type="text" class="form-control" id="alternativePhone" name="alternativePhone" placeholder="Ex 73 0 0000-0000">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="bairro">Bairro</label>
-                  <input type="text" class="form-control" id="bairro" placeholder="Ex: Centro">
+                  <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Ex: Centro">
                 </div>
                <div class="form-row">
                     <div class="form-group col-md-9">
                         <label for="rua">Rua</label>
-                        <input type="text" class="form-control" id="rua" placeholder="Ex: Faustino Caló">
+                        <input type="text" class="form-control" name="rua" id="rua" placeholder="Ex: Faustino Caló">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="rua">Nª</label>
-                        <input type="number" class="form-control" id="rua" placeholder="Ex: 190">
+                        <input type="number" class="form-control" id="rua" name="numero" placeholder="Ex: 190">
                     </div>
                </div> 
                <div class="form-group">
                 <label for="bairro">complemento</label>
-                <textarea name="complement" id="bairro" cols="50" rows="10"></textarea>
+                <textarea name="complemento" style="width: 100%; max-height: 120px;"></textarea>
               </div>
                 <div class="form-row">
                     <div class="form-group">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="paymentMethod">
-                            <label class="form-check-label" for="paymentMethodGrinCard">
+                            <input class="form-check-input" type="radio" id="paymentMethodGrinCard" name="paymentMethod">
+                            <label class="form-check-label" for="paymentMethodGrinCard" value="0">
                             Cartão ?
                             </label>
                         </div>
                     </div>
                     <div class="form-group ml-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="paymentMethod">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethodMoany" value="1">
                             <label class="form-check-label" for="paymentMethodMoany">
                             Dinheiro ?
                             </label>
@@ -153,10 +153,10 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="rua">Troco para?</label>
-                        <input type="text" class="form-control" id="rua" placeholder="Ex: 100,00">
+                        <input type="text" class="form-control" name="troco" placeholder="Ex: 100,00">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
+                <button type="submit" class="btn btn-primary payment">Finalizar Pedido</button>
               </form>
         </div>
       </div>
