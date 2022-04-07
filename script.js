@@ -170,7 +170,7 @@ selectOne('.cart--finalizar').addEventListener('click', (e)=>{
 
         let addrres = `Bairro:${bairro}\nRua: ${rua}\nNª:${numero}\nCompleto:${completo}`
         let paymentMethod = `Cartão: não\nDinheiro: sim\nTroco para?: R$: ${troco}`
-        let bodyUrl = `*PEDIDO de: ${name}*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n*Método de Pagamento*\n${paymentMethod}\n\n============\n\nTotal:${subtotal} \nTroco:R$ ${troco}`
+        let bodyUrl = `*Pedido de: ${name}*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n*Método de Pagamento*\n${paymentMethod}\n\n============\n\nTotal:${subtotal} \nTroco:R$ ${troco}`
         if(bairro != null){
             sendMessage(bodyUrl);
         }
