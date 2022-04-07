@@ -22,7 +22,7 @@ header {
     right: 0;
     height: 60px;
     background-color: #399ade;
-    display: none;
+    display: none !important;
     justify-content: flex-end;
     align-items: center;
 }
@@ -401,7 +401,7 @@ h1 {
         max-width: 100%;
     }
     header {
-        display: flex;
+        display: flex !important;
     }
     main {
         padding-top: 60px;
