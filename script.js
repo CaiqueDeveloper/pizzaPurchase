@@ -144,12 +144,12 @@ selectOne('.cart--finalizar').addEventListener('click', (e)=>{
 
     for(let i in cartFinal){
         
-        itemPayment += `${cartFinal[i].name} - Quantidade: ${cartFinal[i].quantity}\n`
+        itemPayment += `${cartFinal[i].name} - Quantidade: ${cartFinal[i].quantity}\n\n`
     }
     let addrres = `Bairro: Centro\nRua: Faustino Caló\nNª: 190\nCompleto: Do lado da casa de ciclano`
     let paymentMethod = `Cartão: não\nDinheiro: sim\nTroco para?: R$: 150.00`
     let troco = 150 - subtotal
-    let bodyUrl = `===PEDIDO===\n\n${itemPayment}\n===Endereço===\n\n${addrres}\n\n===Método de Pagamento===\n${paymentMethod}\n\n======\n\nTotoal:${subtotal} \nTroco:R$ ${troco.toFixed(2)}`
+    let bodyUrl = `*PEDIDO*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n Método de Pagamento\n${paymentMethod}\n\n============\n\nTotoal:${subtotal} \nTroco:R$ ${troco.toFixed(2)}`
    window.open(`https://api.whatsapp.com/send?phone=7399811792&text=${window.encodeURIComponent(bodyUrl)}`,"_blank")
    console.log(bodyUrl);
 })
