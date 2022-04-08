@@ -117,7 +117,7 @@ selectOne('.cart--finalizar').addEventListener('click', (e)=>{
     const cartFinal = []
     let subtotal = 0
     let itemPayment = ''
-
+    let finalTroco = 0
     for(let i in cart){
         let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
         subtotal += pizzaItem.price * cart[i].modalQt
@@ -162,16 +162,18 @@ selectOne('.cart--finalizar').addEventListener('click', (e)=>{
         bairro = selectOne('input[name=bairro]').value
         rua = selectOne('input[name=rua]').value
         numero = selectOne('input[name=numero]').value
-        troco = selectOne('input[name=troco]').value
-        payment = ( selectOne('input[name="paymentMethod"]:checked').value == 1) ? `Cartão: não\n Dinheiro: Sim`: `Cartão: Sim\n Dinheiro: não`
+        let checked = selectOne('input[name="paymentMethod"]:checked').value //(  != 1) ? `Cartão: Sim\n Dinheiro: NÃO`: `Cartão: NÃO\n Dinheiro: Sim`
+        payment = checked != "1" ? 'Cartão: Sim\nDinheiro: NÃO\n' : 'Cartão: NÃO\nDinheiro: Sim\n'
+        troco = checked != "1" ? 'NÃO' :  parseFloat(selectOne('input[name=troco]').value).toFixed(2)
+        finalTroco =  checked != "1" ? "NÃO": troco - subtotal
         completo = selectOne('textarea[name=complemento]').value
         selectOne('.modal').style.display = 'none'
         selectOne('.modal').classList.remove('show')
-
-        let addrres = `Bairro:${bairro}\nRua: ${rua}\nNª:${numero}\nCompleto:${completo}`
-        let paymentMethod = `Cartão: não\nDinheiro: sim\nTroco para?: R$: ${troco}`
-        let bodyUrl = `*Pedido de: ${name}*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n*Método de Pagamento*\n${paymentMethod}\n\n============\n\nTotal:${subtotal} \nTroco:R$ ${troco}`
-        if(bairro != null){
+        let phone = (alternativeNumber != '') ? alternativeNumber:  'NÃO'
+        let addrres = `Bairro:${bairro}\nRua: ${rua}\nNª:${numero}\nCompleto:${completo}\nTelefone Alternativo: ${phone}`
+        let paymentMethod = `${payment}\nTroco para?: R$: ${troco}`
+        let bodyUrl = `*Pedido de: ${name}*\n\n${itemPayment}\n*Endereço*\n\n${addrres}\n\n*Método de Pagamento*\n${paymentMethod}\n\n============\n\nTotal: ${subtotal.toFixed(2)} \nTroco: R$ ${finalTroco.toFixed(2)}`
+        if(name != null && bairro != null && rua != null && bairro != null){
             sendMessage(bodyUrl);
         }
     })
@@ -207,7 +209,7 @@ function updateCart(){
         selectOne('.cart').innerHTML = '';
         
         let subtotal = 0
-        let desconto = 0
+        let desconto = 2
         let total = 0
 
         for(let i in cart){
@@ -252,8 +254,8 @@ function updateCart(){
            
         }
 
-        desconto = subtotal * 0.1
-        total = subtotal - desconto
+       // desconto = subtotal * 0.1
+        total = subtotal + desconto
         selectOne('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
         selectOne('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
         selectOne('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
